@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>掼蛋游戏</title>
+    <style>
+        #game-board {
+            display: grid;
+            grid-template-columns: repeat(4, 100px);
+            grid-gap: 10px;
+        }
+
+        .card {
+            width: 100px;
+            height: 150px;
+            border: 1px solid #000;
+            text-align: center;
+            line-height: 150px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>掼蛋游戏</h1>
+    <div id="game-board"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const suits = ['♠', '♥', '♦', '♣'];
+            const ranks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+
+            const deck = [];
+
+            for (const suit of suits) {
+                for (const rank of ranks) {
+                    deck.push({ suit, rank });
+                }
+            }
+
+            // Shuffle the deck (you can use a more sophisticated algorithm)
+            deck.sort(() => Math.random() - 0.5);
+
+            const gameBoard = document.getElementById('game-board');
+
+            // Create and render cards on the game board
+            deck.forEach((card, index) => {
+                const cardElement = document.createElement('div');
+                cardElement.classList.add('card');
+                cardElement.textContent = `${card.rank} ${card.suit}`;
+                cardElement.addEventListener('click', () => onCardClick(index));
+                gameBoard.appendChild(cardElement);
+            });
+
+            function onCardClick(index) {
+                // Handle card click logic here
+                alert(`Card clicked: ${deck[index].rank} ${deck[index].suit}`);
+            }
+        });
+    </script>
+</body>
+</html>
